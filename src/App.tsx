@@ -11,34 +11,33 @@ const options = {
 const pixel = "821778102203144";
 
 function App() {
-  ReactPixel.init(pixel, undefined, options);
-  ReactPixel.trackSingle(pixel, "InitiateCheckout");
-
   const sendEvent = (paymentType: PaymentType) => {
     if (paymentType === "cc") {
       console.log(paymentType);
-      ReactPixel.trackSingle(pixel, "Purchase", {
+      ReactPixel.track("Purchase", {
         currency: "BRL",
         value: 10.0,
       });
     } else if (paymentType === "pix") {
       console.log(paymentType);
-      ReactPixel.trackSingle(pixel, "Purchase", {
+      ReactPixel.track("Purchase", {
         currency: "BRL",
         value: 20.0,
       });
     } else if (paymentType === "billet") {
       console.log(paymentType);
-      ReactPixel.trackSingle(pixel, "Purchase", {
+      ReactPixel.track("Purchase", {
         currency: "BRL",
         value: 30.0,
       });
     }
   };
 
-  // useEffect(() => {
-  //   fbq('track', 'InitiateCheckout')
-  // }, [])
+  useEffect(() => {
+    ReactPixel.init(pixel);
+    ReactPixel.trackSingle(pixel, "InitiateCheckout");
+    console.log("initiated: " + pixel);
+  }, []);
 
   return (
     <div className="App">
